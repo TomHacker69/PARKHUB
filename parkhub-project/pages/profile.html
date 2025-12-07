@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ParkHub - Profile</title>
+   <!-- For CSS -->
+<link rel="stylesheet" href="../styles.css">
+
+<!-- For JavaScript -->
+<script src="../home.js"></script>
+<!-- OR -->
+<script src="../script.js"></script>
+<!-- OR -->
+<script src="../bookings.js"></script>
+<!-- OR -->
+<script src="../profile.js"></script>
+
+<!-- For navigation links -->
+<li><a href="../pages/home.html" class="nav-link">Home</a></li>
+<li><a href="../pages/booking.html" class="nav-link">Book Parking</a></li>
+<li><a href="../pages/bookings.html" class="nav-link">My Bookings</a></li>
+<li><a href="../pages/profile.html" class="nav-link">Profile</a></li>
+<li><a href="#" class="nav-link logout-btn">Logout</a></li>
+</head>
+<body>
+    <nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-logo">🅿️ ParkHub</div>
+        <ul class="nav-menu">
+            <li><a href="../pages/home.html" class="nav-link">Home</a></li>
+            <li><a href="../pages/booking.html" class="nav-link">Book Parking</a></li>
+            <li><a href="../pages/bookings.html" class="nav-link">My Bookings</a></li>
+            <li><a href="../pages/profile.html" class="nav-link">Profile</a></li>
+            <li><a href="#" class="nav-link logout-btn">Logout</a></li>
+        </ul>
+    </div>
+</nav>
+    <!-- Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>My Profile</h1>
+            <p>Manage your account and settings</p>
+        </div>
+    </section>
+
+    <div class="container profile-container">
+        <!-- Profile Tabs -->
+        <div class="profile-tabs">
+            <button class="profile-tab-btn active" data-tab="personal">Personal Info</button>
+            <button class="profile-tab-btn" data-tab="vehicles">My Vehicles</button>
+            <button class="profile-tab-btn" data-tab="payment">Payment Methods</button>
+            <button class="profile-tab-btn" data-tab="preferences">Preferences</button>
+            <button class="profile-tab-btn" data-tab="security">Security</button>
+        </div>
+
+        <!-- Profile Content -->
+        <div class="profile-content">
+            <!-- Personal Info Tab -->
+            <div id="personal-tab" class="profile-section active">
+                <h2>Personal Information</h2>
+                
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <img id="avatarImg" src="https://via.placeholder.com/120" alt="Profile">
+                        <button class="upload-btn" id="changeAvatarBtn">Change Photo</button>
+                        <input type="file" id="avatarInput" style="display:none;" accept="image/*">
+                    </div>
+
+                    <div class="profile-info">
+                        <h3 id="userName">John Doe</h3>
+                        <p id="userEmail">john.doe@email.com</p>
+                        <p id="memberSince">Member since January 2024</p>
+                        <div class="user-stats">
+                            <div class="stat">
+                                <span class="stat-value" id="profileBookings">12</span>
+                                <span class="stat-name">Bookings</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value" id="profileRating">4.8</span>
+                                <span class="stat-name">Rating</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value" id="profileSpent">$156</span>
+                                <span class="stat-name">Total Spent</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <form id="personalForm" class="form-section">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name:</label>
+                            <input type="text" id="firstName" value="John">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name:</label>
+                            <input type="text" id="lastName" value="Doe">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address:</label>
+                        <input type="email" id="email" value="john.doe@email.com">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Phone Number:</label>
+                            <input type="tel" id="phone" value="+1 (555) 123-4567">
+                        </div>
+                        <div class="form-group">
+                            <label for="dob">Date of Birth:</label>
+                            <input type="date" id="dob" value="1990-05-15">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">Address:</label>
+                        <input type="text" id="address" value="123 Main Street, Apt 4B">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">City:</label>
+                            <input type="text" id="city" value="New York">
+                        </div>
+                        <div class="form-group">
+                            <label for="state">State/Province:</label>
+                            <input type="text" id="state" value="NY">
+                        </div>
+                        <div class="form-group">
+                            <label for="zip">ZIP/Postal Code:</label>
+                            <input type="text" id="zip" value="10001">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="save-btn">Save Changes</button>
+                </form>
+            </div>
+
+            <!-- Vehicles Tab -->
+            <div id="vehicles-tab" class="profile-section">
+                <h2>My Vehicles</h2>
+                
+                <div id="vehiclesList" class="vehicles-list">
+                    <!-- Vehicles will be populated here -->
+                </div>
+
+                <button class="add-btn" id="addVehicleBtn">+ Add New Vehicle</button>
+
+                <div id="addVehicleForm" class="form-section hidden">
+                    <h3>Add Vehicle</h3>
+                    <form id="vehicleForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="vehicleMake">Make:</label>
+                                <input type="text" id="vehicleMake" placeholder="Toyota">
+                            </div>
+                            <div class="form-group">
+                                <label for="vehicleModel">Model:</label>
+                                <input type="text" id="vehicleModel" placeholder="Camry">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="vehicleYear">Year:</label>
+                                <input type="number" id="vehicleYear" placeholder="2023">
+                            </div>
+                            <div class="form-group">
+                                <label for="vehiclePlate">License Plate:</label>
+                                <input type="text" id="vehiclePlate" placeholder="ABC-1234">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="vehicleColor">Color:</label>
+                            <select id="vehicleColor">
+                                <option>Select color</option>
+                                <option>Black</option>
+                                <option>White</option>
+                                <option>Gray</option>
+                                <option>Red</option>
+                                <option>Blue</option>
+                            </select>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="save-btn">Add Vehicle</button>
+                            <button type="button" class="cancel-btn" id="cancelVehicleBtn">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Payment Methods Tab -->
+            <div id="payment-tab" class="profile-section">
+                <h2>Payment Methods</h2>
+                
+                <div id="paymentMethods" class="payment-list">
+                    <!-- Payment methods will be populated here -->
+                </div>
+
+                <button class="add-btn" id="addPaymentBtn">+ Add Payment Method</button>
+
+                <div id="addPaymentForm" class="form-section hidden">
+                    <h3>Add Payment Method</h3>
+                    <form id="paymentForm">
+                        <div class="form-group">
+                            <label for="paymentType">Payment Type:</label>
+                            <select id="paymentType" required>
+                                <option>Select type</option>
+                                <option>Credit Card</option>
+                                <option>Debit Card</option>
+                                <option>Digital Wallet</option>
+                                <option>UPI</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cardName">Cardholder Name:</label>
+                            <input type="text" id="cardName" placeholder="John Doe">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cardNumber">Card Number:</label>
+                            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="expiryDate">Expiry Date:</label>
+                                <input type="text" id="expiryDate" placeholder="MM/YY">
+                            </div>
+                            <div class="form-group">
+                                <label for="cvv">CVV:</label>
+                                <input type="text" id="cvv" placeholder="123">
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="save-btn">Add Payment Method</button>
+                            <button type="button" class="cancel-btn" id="cancelPaymentBtn">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Preferences Tab -->
+            <div id="preferences-tab" class="profile-section">
+                <h2>Preferences</h2>
+                
+                <form id="preferencesForm" class="form-section">
+                    <div class="form-group">
+                        <label for="notificationEmail">Email Notifications:</label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="notifBooking" checked>
+                            <span>Booking confirmations</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="notifReminder" checked>
+                            <span>Booking reminders</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="notifDeals">
+                            <span>Special offers and deals</span>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="defaultLot">Preferred Parking Lot:</label>
+                        <select id="defaultLot">
+                            <option>None</option>
+                            <option>Downtown Garage A</option>
+                            <option>Central Plaza Lot</option>
+                            <option>Tech Park Garage</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="defaultDuration">Default Booking Duration:</label>
+                        <select id="defaultDuration">
+                            <option>2 Hours</option>
+                            <option>4 Hours</option>
+                            <option>8 Hours</option>
+                            <option>24 Hours</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="theme">Theme:</label>
+                        <select id="theme">
+                            <option>Light</option>
+                            <option>Dark</option>
+                            <option>Auto</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="save-btn">Save Preferences</button>
+                </form>
+            </div>
+
+            <!-- Security Tab -->
+            <div id="security-tab" class="profile-section">
+                <h2>Security Settings</h2>
+
+                <div class="security-section">
+                    <h3>Change Password</h3>
+                    <form id="passwordForm">
+                        <div class="form-group">
+                            <label for="currentPassword">Current Password:</label>
+                            <input type="password" id="currentPassword">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="newPassword">New Password:</label>
+                            <input type="password" id="newPassword">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password:</label>
+                            <input type="password" id="confirmPassword">
+                        </div>
+
+                        <button type="submit" class="save-btn">Update Password</button>
+                    </form>
+                </div>
+
+                <div class="security-section">
+                    <h3>Two-Factor Authentication</h3>
+                    <p>Add an extra layer of security to your account</p>
+                    <button id="enableTwoFA" class="action-btn">Enable 2FA</button>
+                </div>
+
+                <div class="security-section">
+                    <h3>Active Sessions</h3>
+                    <div class="sessions-list">
+                        <div class="session-item">
+                            <span>🖥️ Desktop - Chrome</span>
+                            <span class="session-info">Last active: 5 minutes ago</span>
+                            <button class="session-logout">Sign Out</button>
+                        </div>
+                        <div class="session-item">
+                            <span>📱 Mobile - Safari</span>
+                            <span class="session-info">Last active: 2 hours ago</span>
+                            <button class="session-logout">Sign Out</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="security-section danger">
+                    <h3>Delete Account</h3>
+                    <p>Permanently delete your ParkHub account and all associated data</p>
+                    <button id="deleteAccountBtn" class="danger-btn">Delete Account</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>About ParkHub</h4>
+                    <p>Making urban parking smart, easy, and accessible.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <p>Email: support@parkhub.com</p>
+                    <p>Phone: 1-800-PARK-HUB</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="profile.js"></script>
+</body>
+</html>
