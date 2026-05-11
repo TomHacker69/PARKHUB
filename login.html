@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- For CSS -->
+<link rel="stylesheet" href="../styles.css">
+
+<!-- For JavaScript -->
+<script src="../home.js"></script>
+<!-- OR -->
+<script src="../script.js"></script>
+<!-- OR -->
+<script src="../bookings.js"></script>
+<!-- OR -->
+<script src="../profile.js"></script>
+
+<!-- For navigation links -->
+<li><a href="../pages/home.html" class="nav-link">Home</a></li>
+<li><a href="../pages/booking.html" class="nav-link">Book Parking</a></li>
+<li><a href="../pages/bookings.html" class="nav-link">My Bookings</a></li>
+<li><a href="../pages/profile.html" class="nav-link">Profile</a></li>
+<li><a href="#" class="nav-link logout-btn">Logout</a></li>
+    <title>ParkHub - Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #667eea;
+            --primary-dark: #764ba2;
+            --secondary: #f093fb;
+            --light: #f8f9fa;
+            --dark: #333;
+            --border: #e0e0e0;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .login-container {
+            background: white;
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            max-width: 450px;
+            width: 100%;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-logo {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .login-header h1 {
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            font-size: 2rem;
+        }
+
+        .login-header p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            padding: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .remember-forgot label {
+            margin-bottom: 0;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .remember-forgot input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .remember-forgot a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .remember-forgot a:hover {
+            text-decoration: underline;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 2rem 0;
+            color: #999;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .divider span {
+            padding: 0 1rem;
+            font-size: 0.9rem;
+        }
+
+        .social-login {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-btn {
+            padding: 0.8rem;
+            border: 2px solid var(--border);
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .social-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .signup-link {
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .signup-link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .signup-link a:hover {
+            color: var(--primary-dark);
+        }
+
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+            display: none;
+            border-left: 4px solid #c62828;
+        }
+
+        .success-message {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+            display: none;
+            border-left: 4px solid #2e7d32;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            color: var(--primary);
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .login-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .social-login {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <!-- Header -->
+        <div class="login-header">
+            <div class="login-logo">🅿️</div>
+            <h1>ParkHub</h1>
+            <p>Smart Parking Made Simple</p>
+        </div>
+
+        <!-- Messages -->
+        <div id="errorMessage" class="error-message"></div>
+        <div id="successMessage" class="success-message"></div>
+
+        <!-- Login Form -->
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    placeholder="john@example.com" 
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    placeholder="Enter your password" 
+                    required
+                >
+            </div>
+
+            <div class="remember-forgot">
+                <label>
+                    <input type="checkbox" id="remember" name="remember">
+                    Remember me
+                </label>
+                <a href="#forgot">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="login-btn" id="loginBtn">Login</button>
+            <div class="loading" id="loading">Logging in...</div>
+        </form>
+
+        <!-- Divider -->
+        <div class="divider">
+            <span>Or continue with</span>
+        </div>
+
+        <!-- Social Login -->
+        <div class="social-login">
+            <button class="social-btn" onclick="loginWithGoogle()">Google</button>
+            <button class="social-btn" onclick="loginWithFacebook()">Facebook</button>
+        </div>
+
+        <!-- Sign Up Link -->
+        <div class="signup-link">
+            Don't have an account? <a href="#signup">Sign up here</a>
+        </div>
+    </div>
+
+    <script>
+        // Demo credentials
+        const DEMO_EMAIL = 'user@parkhub.com';
+        const DEMO_PASSWORD = 'password123';
+
+        // Get form elements
+        const loginForm = document.getElementById('loginForm');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const rememberCheckbox = document.getElementById('remember');
+        const loginBtn = document.getElementById('loginBtn');
+        const loading = document.getElementById('loading');
+        const errorMessage = document.getElementById('errorMessage');
+        const successMessage = document.getElementById('successMessage');
+
+        // Load saved email if remembered
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedEmail = localStorage.getItem('parkhub_saved_email');
+            if (savedEmail) {
+                emailInput.value = savedEmail;
+                rememberCheckbox.checked = true;
+            }
+        });
+
+        // Handle login form submission
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+
+            // Clear previous messages
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+
+            // Validate input
+            if (!email || !password) {
+                showError('Please fill in all fields');
+                return;
+            }
+
+            // Show loading
+            loading.style.display = 'block';
+            loginBtn.disabled = true;
+
+            // Simulate API call
+            setTimeout(() => {
+                if (email === DEMO_EMAIL && password === DEMO_PASSWORD) {
+                    // Save email if remember is checked
+                    if (rememberCheckbox.checked) {
+                        localStorage.setItem('parkhub_saved_email', email);
+                    } else {
+                        localStorage.removeItem('parkhub_saved_email');
+                    }
+
+                    // Store login session
+                    localStorage.setItem('parkhub_user', JSON.stringify({
+                        email: email,
+                        name: 'John Doe',
+                        loginTime: new Date().toISOString()
+                    }));
+
+                    showSuccess('Login successful! Redirecting...');
+                    
+                    // Redirect to home page
+                    setTimeout(() => {
+                        window.location.href = 'pages/home.html';
+                    }, 1500);
+                } else {
+                    showError('Invalid email or password. Try demo@parkhub.com / password123');
+                    loading.style.display = 'none';
+                    loginBtn.disabled = false;
+                }
+            }, 1500);
+        });
+
+        // Show error message
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+        }
+
+        // Show success message
+        function showSuccess(message) {
+            successMessage.textContent = message;
+            successMessage.style.display = 'block';
+        }
+
+        // Social login handlers
+        function loginWithGoogle() {
+            alert('Google login would be implemented with Google OAuth');
+            // In real app: window.location.href = 'https://accounts.google.com/...';
+        }
+
+        function loginWithFacebook() {
+            alert('Facebook login would be implemented with Facebook SDK');
+            // In real app: FB.login(...);
+        }
+
+        // Demo login button for testing
+        console.log('Demo Credentials:');
+        console.log('Email: user@parkhub.com');
+        console.log('Password: password123');
+    </script>
+</body>
+</html>
