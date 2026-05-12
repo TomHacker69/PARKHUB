@@ -1,1 +1,222 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ParkHub - My Bookings</title>
+    <!-- For CSS -->
+<link rel="stylesheet" href="../styles.css">
+
+<!-- For JavaScript -->
+<script src="../home.js"></script>
+<!-- OR -->
+<script src="../script.js"></script>
+<!-- OR -->
+<script src="../bookings.js"></script>
+<!-- OR -->
+<script src="../profile.js"></script>
+
+<!-- For navigation links -->
+<li><a href="../pages/home.html" class="nav-link">Home</a></li>
+<li><a href="../pages/booking.html" class="nav-link">Book Parking</a></li>
+<li><a href="../pages/bookings.html" class="nav-link">My Bookings</a></li>
+<li><a href="../pages/profile.html" class="nav-link">Profile</a></li>
+<li><a href="#" class="nav-link logout-btn">Logout</a></li>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">🅿️ ParkHub</div>
+            <ul class="nav-menu">
+                <li><a href="../pages/home.html" class="nav-link">Home</a></li>
+                <li><a href="../pages/booking.html" class="nav-link">Book Parking</a></li>
+                <li><a href="../pages/bookings.html" class="nav-link active">My Bookings</a></li>
+                <li><a href="../pages/profile.html" class="nav-link">Profile</a></li>
+                <li><a href="#" class="nav-link logout-btn">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>My Bookings</h1>
+            <p>Manage and track all your parking reservations</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Filter Section -->
+        <section class="filter-section">
+            <div class="filter-tabs">
+                <button class="filter-btn active" data-filter="all">All Bookings</button>
+                <button class="filter-btn" data-filter="active">Active</button>
+                <button class="filter-btn" data-filter="upcoming">Upcoming</button>
+                <button class="filter-btn" data-filter="completed">Completed</button>
+                <button class="filter-btn" data-filter="cancelled">Cancelled</button>
+            </div>
+
+            <div class="search-section">
+                <input type="text" id="searchBooking" placeholder="Search by lot name or confirmation ID...">
+            </div>
+        </section>
+
+        <!-- Bookings List -->
+        <section class="bookings-section">
+            <div id="activeBookingsContainer" class="bookings-container">
+                <h3>Active Bookings</h3>
+                <div id="activeBookings" class="bookings-list"></div>
+            </div>
+
+            <div id="upcomingBookingsContainer" class="bookings-container">
+                <h3>Upcoming Bookings</h3>
+                <div id="upcomingBookings" class="bookings-list"></div>
+            </div>
+
+            <div id="completedBookingsContainer" class="bookings-container">
+                <h3>Completed Bookings</h3>
+                <div id="completedBookings" class="bookings-list"></div>
+            </div>
+
+            <div id="emptyState" class="empty-state hidden">
+                <div class="empty-icon">📭</div>
+                <h3>No Bookings Found</h3>
+                <p>You don't have any parking bookings yet.</p>
+                <a href="../pages/booking.html" class="cta-button">Book Your First Spot</a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Booking Details Modal -->
+    <div id="bookingModal" class="modal hidden">
+        <div class="modal-content booking-modal-content">
+            <span class="close-btn">&times;</span>
+            <h3>Booking Details</h3>
+            
+            <div class="booking-details">
+                <div class="detail-row">
+                    <span class="detail-label">Confirmation ID:</span>
+                    <span class="detail-value" id="modalConfirmId"></span>
+                    <button class="copy-btn" onclick="copyToClipboard()">Copy</button>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Parking Lot:</span>
+                    <span class="detail-value" id="modalLotName"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Location:</span>
+                    <span class="detail-value" id="modalLocation"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Space Number:</span>
+                    <span class="detail-value" id="modalSpaceNo"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Start Date & Time:</span>
+                    <span class="detail-value" id="modalStartTime"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">End Date & Time:</span>
+                    <span class="detail-value" id="modalEndTime"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Duration:</span>
+                    <span class="detail-value" id="modalDuration"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Vehicle Type:</span>
+                    <span class="detail-value" id="modalVehicleType"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Hourly Rate:</span>
+                    <span class="detail-value" id="modalRate"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Total Amount:</span>
+                    <span class="detail-value total" id="modalTotalAmount"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Status:</span>
+                    <span class="detail-value status" id="modalStatus"></span>
+                </div>
+            </div>
+
+            <div class="qr-section">
+                <p>Entry QR Code:</p>
+                <div id="modalQRCode" class="qr-display"></div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="action-btn extend-btn" id="extendBtn">Extend Booking</button>
+                <button class="action-btn cancel-btn" id="cancelBtn">Cancel Booking</button>
+                <button class="action-btn close-modal-btn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Extend Booking Modal -->
+    <div id="extendModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3>Extend Your Booking</h3>
+            
+            <div class="extend-form">
+                <div class="form-group">
+                    <label for="extendDuration">Additional Hours:</label>
+                    <select id="extendDuration">
+                        <option value="">Select duration</option>
+                        <option value="1">1 Hour</option>
+                        <option value="2">2 Hours</option>
+                        <option value="4">4 Hours</option>
+                        <option value="8">8 Hours</option>
+                    </select>
+                </div>
+
+                <div class="cost-info">
+                    <p>Additional Cost: $<span id="extendCost">0.00</span></p>
+                    <p>New Total: $<span id="extendTotal">0.00</span></p>
+                </div>
+
+                <button class="confirm-btn" id="confirmExtend">Confirm Extension</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cancel Confirmation Modal -->
+    <div id="cancelModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3>Cancel Booking?</h3>
+            <p>Are you sure you want to cancel this booking?</p>
+            <p class="warning">Cancellations made 2 hours before start time will receive a full refund.</p>
+            
+            <div class="modal-actions">
+                <button class="action-btn confirm-btn" id="confirmCancel">Yes, Cancel</button>
+                <button class="action-btn secondary-btn" id="dontCancelBtn">No, Keep It</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>About ParkHub</h4>
+                    <p>Making urban parking smart, easy, and accessible.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <p>Email: support@parkhub.com</p>
+                    <p>Phone: 1-800-PARK-HUB</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../bookings.js"></script>
+</body>
+</html>
